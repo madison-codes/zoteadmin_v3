@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import User from './User'
 import userData from './mock/.mockusers';
-
-console.log(userData);
 
 class App extends Component {
   render() {
     return (
       <div>
         <div>
-          { userData.users.map(user => <p>{user.sub_end}</p>) }
+          { userData.users.map(user => <User user= {user}/>) }
         </div>
+
         <div className="App">
           <div className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
