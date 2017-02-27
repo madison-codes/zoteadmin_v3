@@ -22,9 +22,9 @@ branches:
     - master
     - /^deploy-.*$/ # regex ok
   # blacklist
-  except:
-    - dontrunme
-    - test
+  # except:
+  #   - dontrunme
+  #   - test
 
 # declare your environment variables
 env:
@@ -44,16 +44,17 @@ env:
 ## begin build steps
 ####################
 
-before_install:
-- sudo apt-get update -qq
+# before_install:
+# - sudo apt-get update -qq
 
 install:
-  - wget https://github.com/n1k0/casperjs/archive/1.0.2.tar.gz -O /tmp/casper.tar.gz
-  - tar -xvf /tmp/casper.tar.gz
-  - export PATH=$PATH:$PWD/casperjs-1.0.2/bin/
+  # - wget https://github.com/n1k0/casperjs/archive/1.0.2.tar.gz -O /tmp/casper.tar.gz
+  # - tar -xvf /tmp/casper.tar.gz
+  # - export PATH=$PATH:$PWD/casperjs-1.0.2/bin/
+  - npm run build
 
 before_script:
-  - bower install
+  - npm install
 
 after_success:
 - test $TRAVIS_PULL_REQUEST = false
@@ -66,27 +67,27 @@ before_deploy:
   && gulp build \
   && cd dist \
   && npm install --prod \
-  && cd $TRAVIS_BUILD_DIR \
-  && tar -zcvf amber-storm-$TRAVIS_BRANCH.tar.gz dist \
+  # && cd $TRAVIS_BUILD_DIR \
+  # && tar -zcvf amber-storm-$TRAVIS_BRANCH.tar.gz dist \
   && export PRODBUILDCOMPLETE=true
 
 
 ## Deployment options
 ####################
 
-deploy:
-  # specify the deployment provider
-  provider: releases
-  # options for provider
-  # api_key:
-  #   secure: securekeyhere
-  file: myrepo-$TRAVIS_BRANCH.tar.gz
-  # conditions for deployment
-  on:
-    condition: $PRODBUILDCOMPLETE = true
-    repo: myname/myrepo
-    all_branches: true
-    tags: true
-
-after_deploy:
-  - ssh git@mysite.biz "./deploy.sh $TRAVIS_BRANCH"
+# deploy:
+#   # specify the deployment provider
+#   provider: releases
+#   # options for provider
+#   # api_key:
+#   #   secure: securekeyhere
+#   file: myrepo-$TRAVIS_BRANCH.tar.gz
+#   # conditions for deployment
+#   on:
+#     condition: $PRODBUILDCOMPLETE = true
+#     repo: myname/myrepo
+#     all_branches: true
+#     tags: true
+#
+# after_deploy:
+#   - ssh git@mysite.biz "./deploy.sh $TRAVIS_BRANCH"
