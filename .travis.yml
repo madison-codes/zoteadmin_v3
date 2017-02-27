@@ -49,6 +49,8 @@ script:
   - cd whiz-bang
   - npm link builder-react-component builder-react-component-dev
   - npm install
+  - npm install -g bower
+  - bower install
   - node_modules/.bin/builder run check-ci
   - npm prune --production
   - node_modules/.bin/builder run build
