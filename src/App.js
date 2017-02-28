@@ -7,7 +7,7 @@ import moment from 'moment';
 import User from './User'
 import Nav from './Nav'
 
-import userData from './mock/.mockusers';
+import userData from './mock/mockusers';
 import dynamicSort from './dynamicSort';
 
 
